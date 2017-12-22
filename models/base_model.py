@@ -38,7 +38,7 @@ class BaseModel(object):
         raise NotImplemented
 
     @abstractmethod
-    def get_visuals(self):
+    def get_visuals(self, sample_single_image=True):
         raise NotImplemented
 
     @abstractmethod

@@ -69,6 +69,10 @@ class ALI(BaseModel):
         self.G_loss = None
 
     def set_input(self, data, is_z_given=False):
+        temp = self.input.clone()
+        temp.resize_(self.input.size())
+        temp.copy_(self.input)
+        self.input = temp
         self.input.resize_(data.size()).copy_(data)
         if not is_z_given:
             self.set_z()
@@ -138,9 +142,9 @@ class ALI(BaseModel):
             ('G_loss', self.G_loss.cpu().data.numpy()[0]),
         ])
 
-    def get_visuals(self):
-        fake_x = tensor2im(self.sampled_x.data)
-        real_x = tensor2im(self.x.data)
+    def get_visuals(self, sample_single_image=True):
+        fake_x = tensor2im(self.sampled_x.data, sample_single_image=sample_single_image)
+        real_x = tensor2im(self.x.data, sample_single_image=sample_single_image)
         return OrderedDict([('real_x', real_x), ('fake_x', fake_x)])
 
     def save(self, epoch):

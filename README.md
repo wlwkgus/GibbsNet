@@ -32,7 +32,14 @@ SVHN, CIFAR10 dataset are currently supported.
 ## Results
 
 ### 1. SVHN
+- `epoch` 100, `lr` 1e-5, `sampling_count` 20
+- generated results
 
+<p>
+    <img src="./assets/svhn_test.png" style=""><br>
+</p>
+
+### 2. CIFAR10
 - Working in Progress
 
 ## Implementation detail

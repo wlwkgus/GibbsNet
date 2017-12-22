@@ -50,9 +50,16 @@ def save_image(image_numpy, image_path):
     image_pil.save(image_path)
 
 
-def tensor2im(image_tensor, imtype=np.uint8):
-    image_numpy = image_tensor[0].cpu().float().numpy()
-    if image_numpy.shape[0] == 1:
-        image_numpy = np.tile(image_numpy, (3, 1, 1))
-    image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + 1) / 2.0 * 255.0
-    return image_numpy.astype(imtype)
+def tensor2im(image_tensor, imtype=np.uint8, sample_single_image=True):
+    if sample_single_image:
+        image_numpy = image_tensor[0].cpu().float().numpy()
+        if image_numpy.shape[0] == 1:
+            image_numpy = np.tile(image_numpy, (3, 1, 1))
+        image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + 1) / 2.0 * 255.0
+        return image_numpy.astype(imtype)
+    else:
+        image_numpy = image_tensor.cpu().float().numpy()
+        if image_numpy.shape[1] == 1:
+            image_numpy = np.tile(image_numpy, (1, 3, 1, 1))
+        image_numpy = (np.transpose(image_numpy, (0, 2, 3, 1)) + 1) / 2.0 * 255.0
+        return image_numpy.astype(imtype)

@@ -17,7 +17,7 @@ visualizer = Visualizer(opt)
 total_steps = 0
 epoch_count = 0
 
-for epoch in range(100):
+for epoch in range(opt.epoch):
     epoch_start_time = time.time()
     iter_count = 0
 

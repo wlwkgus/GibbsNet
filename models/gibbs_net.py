@@ -35,6 +35,10 @@ class GibbsNet(BaseModel):
         self.forward(volatile=True)
 
     def set_input(self, data):
+        temp = self.input.clone()
+        temp.resize_(self.input.size())
+        temp.copy_(self.input)
+        self.input = temp
         self.input.resize_(data.size()).copy_(data)
 
     def sampling(self, volatile=True):
@@ -68,8 +72,8 @@ class GibbsNet(BaseModel):
     def get_losses(self):
         return self.ali_model.get_losses()
 
-    def get_visuals(self):
-        return self.ali_model.get_visuals()
+    def get_visuals(self, sample_single_image=True):
+        return self.ali_model.get_visuals(sample_single_image=sample_single_image)
 
     def remove(self, epoch):
         self.ali_model.remove(epoch)

@@ -47,6 +47,9 @@ class OptionParser(object):
         self.parser.add_argument('--input_channel', type=int, default=3, help='input channels')
         self.parser.add_argument('--width', type=int, default=32, help='width')
         self.parser.add_argument('--z_dimension', type=int, default=64, help='latent z dimension')
+        self.parser.add_argument('--lr', type=float, default=1e-4, help='learning rate')
+        self.parser.add_argument('--sampling_count', type=int, default=5, help='gibbsnet sampling count')
+        self.parser.add_argument('--epoch', type=int, default=100, help='epoch')
         # visualize options
         self.parser.add_argument('--display_winsize', type=int, default=256, help='display window size')
         self.parser.add_argument('--display_id', type=int, default=1, help='window id of the web display')
@@ -63,9 +66,6 @@ class TrainingOptionParser(OptionParser):
                                  help='do not save intermediate training results to [opt.ckpt_dir]/[opt.model]/web/')
         self.parser.add_argument('--print_freq', type=int, default=2000, help='iteration count per a single print')
         self.parser.add_argument('--plot_freq', type=int, default=15000, help='iteration count per a single plot')
-        self.parser.add_argument('--sampling_count', type=int, default=5, help='gibbsnet sampling count')
-        self.parser.add_argument('--lr', type=float, default=1e-4, help='learning rate')
-        self.parser.add_argument('--test_dir', type=str, default='./test/', help='test dir')
 
 
 class TestingOptionParser(OptionParser):
@@ -74,6 +74,7 @@ class TestingOptionParser(OptionParser):
         self.parser.add_argument('--is_train', type=int, default=0, help='is training')
         self.parser.add_argument('--repeat_generation', type=int, default=10, help='repeat generation count per a single image')
         self.parser.add_argument('--test_count', type=int, default=20, help='test input images count')
+        self.parser.add_argument('--test_dir', type=str, default='./test/', help='test dir')
 
     def parse_args(self):
         opt = self.parser.parse_args()
